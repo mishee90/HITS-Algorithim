@@ -15,13 +15,14 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as mp
 import time
 import io
+import pandas as pd
 
 
 is_sparse = True
 epsilon = 1e-10
 show_iters = False
 
-datapath = 'C:/Dhaval/Program Course Work/Linear Algebra/Project/HITS-Algorithim/HITS-Algorithm-implementation'
+datapath = 'C:/Dhaval/Program Course Work/Linear Algebra/Project/HITS-Algorithm-implementation'
 
 users_path = datapath+'/data/users'
 map_path = datapath+'/data/map'
@@ -35,7 +36,7 @@ else:
 
 
 with io.open(users_path,'rb')as f:
-    users = pickle.load(f)
+    users = pickle.load(f) 
 
 with io.open(map_path,'rb') as f:
     index_id_map = pickle.load(f)
@@ -82,3 +83,24 @@ if is_sparse:
 
 
 
+
+intr[]
+
+for i in index_id_map.keys():
+    print(users[index_id_map[i]])
+
+users_df = pd.DataFrame.from_dict(users,orient = 'index')
+auth_df = pd.DataFrame(auths)
+hubs_df = pd.DataFrame(hubs)
+index_id_map_df = pd.DataFrame.from_dict(index_id_map,orient='index')
+index_id_map_df.columns = ['Key']
+
+auth_of_users = pd.concat([auth_df,index_id_map_df],axis=1)
+
+hubiness_of_users = pd.concat([hubs_df,index_id_map_df],axis=1)
+
+
+auth_of_users.to_csv(datapath+'/auth.csv')
+hubiness_of_users.to_csv(datapath+'/hubs.csv')
+
+users_df.to_csv(datapath+'/users.csv')
